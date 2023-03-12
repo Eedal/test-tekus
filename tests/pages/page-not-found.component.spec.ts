@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageNotFoundComponent } from './page-not-found.component';
+import { PageNotFoundComponent } from '../../src/app/pages/page-not-found/page-not-found.component';
 
 describe('PageNotFoundComponent', () => {
   let component: PageNotFoundComponent;
@@ -20,4 +20,9 @@ describe('PageNotFoundComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  test('should render page-not-found works!', () => {
+    const title = fixture.nativeElement.querySelector('p');
+    expect(title.textContent).toContain('page-not-found works!')
+  })
 });
