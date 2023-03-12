@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SubscriberService } from 'src/app/services/subscriber.service';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  // subscribers: Subscriber[];
+  constructor( private subscriptionsService: SubscriberService) {
+    this.subscriptionsService.getSubscribers().subscribe(response =>   {
+      console.log(response)
+    })
+  }
+
+
 
 }
