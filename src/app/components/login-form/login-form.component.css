@@ -15,6 +15,7 @@
 }
 
 .form-container form .form-field {
+  max-width: 250px;
   margin: 10px 0;
   width: 80%;
 }
@@ -26,6 +27,14 @@
   border-radius: 4px;
 }
 
+.form-container form .form-field input.is-invalid {
+  border: 1px solid red;
+}
+
+.form-container form .form-field small {
+  width: 100px;
+}
+
 .form-container form .form-field button {
   width: 80%;
   padding: 10px;
@@ -34,4 +43,10 @@
   color: white;
   border: none;
   margin-top: 10px;
+  cursor: pointer;
 }
+
+.text-danger {
+  color: red
+}
+
