@@ -8,10 +8,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/material.module';
-import { LoginFormComponent } from './components/login-form/login-form.component';
+import { LoginFormComponent } from './components/login/login-form/login-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/auth-interceptor';
+import { ListSubscriberComponent } from './components/subscriber/list-subscriber/list-subscriber.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AuthInterceptor } from 'src/auth-interceptor';
     HomeComponent,
     PageNotFoundComponent,
     LoginFormComponent,
+    ListSubscriberComponent,
   ],
   imports: [
     BrowserModule,

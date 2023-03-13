@@ -2,16 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environment';
+import { SubscriberResponse } from '../interfaces/subscriber.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SubscriberService {
-  subscribersUrl = environment.API_URL + 'subscribers/'
+  subscribersUrl = environment.API_URL + 'subscribers/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getSubscribers(): Observable<any> {
-    return this.http.get(this.subscribersUrl);
+  getSubscribers(): Observable<SubscriberResponse> {
+    return this.http.get<SubscriberResponse>(this.subscribersUrl);
   }
 }

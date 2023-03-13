@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subscriber } from 'src/app/interfaces/subscriber.interface';
 import { SubscriberService } from 'src/app/services/subscriber.service';
 
 @Component({
@@ -7,13 +8,11 @@ import { SubscriberService } from 'src/app/services/subscriber.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  // subscribers: Subscriber[];
+  subscribers: Subscriber[] = [];
+  
   constructor( private subscriptionsService: SubscriberService) {
     this.subscriptionsService.getSubscribers().subscribe(response =>   {
-      console.log(response)
+      this.subscribers = response.Data;
     })
   }
-
-
-
 }
