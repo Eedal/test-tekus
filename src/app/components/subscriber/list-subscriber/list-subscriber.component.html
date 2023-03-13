@@ -1,12 +1,9 @@
-
-
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="PublicId">
-      <th mat-header-cell *matHeaderCellDef>ID. </th>
-      <td mat-cell *matCellDef="let element">{{ element['PublicId'] }}</td>
+      <th mat-header-cell *matHeaderCellDef>ID.</th>
+      <td mat-cell *matCellDef="let element">{{ element["PublicId"] }}</td>
     </ng-container>
-    
 
     <ng-container matColumnDef="Name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -21,7 +18,22 @@
     <ng-container matColumnDef="CountryName">
       <th mat-header-cell *matHeaderCellDef>Country Name</th>
       <td mat-cell *matCellDef="let element">{{ element.CountryName }}</td>
-    </ng-container> 
+    </ng-container>
+
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element" class="actions-cell">
+        <button mat-icon-button color="primary" (click)="showSubscriber(element)" title="Ver">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="editSubscriber(element)" title="Editar">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="removeSubscriber(element)" title="Eliminar">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

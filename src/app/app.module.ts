@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/auth-interceptor';
 import { ListSubscriberComponent } from './components/subscriber/list-subscriber/list-subscriber.component';
+import { SubscriberDetailComponent } from './components/subscriber/subscriber-detail/subscriber-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ListSubscriberComponent } from './components/subscriber/list-subscriber
     PageNotFoundComponent,
     LoginFormComponent,
     ListSubscriberComponent,
+    SubscriberDetailComponent,
   ],
   imports: [
     BrowserModule,
