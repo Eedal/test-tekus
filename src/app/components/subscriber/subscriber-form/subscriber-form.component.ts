@@ -18,6 +18,7 @@ import { CountryService } from 'src/app/services/country.service';
 import { SubscriberService } from 'src/app/services/subscriber.service';
 import { SubscriberModalComponent } from '../subscriber-modal/subscriber-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { notOnlyWhiteSpace } from 'src/app/utils/validations';
 
 const numberValidator = (control: FormControl) => {
   const value = control.value;
@@ -32,7 +33,7 @@ const numberValidator = (control: FormControl) => {
 })
 export class SubscriberFormComponent {
   subscriberForm: FormGroup = this.formBuilder.group({
-    Name: ['', Validators.required],
+    Name: ['', [Validators.required, notOnlyWhiteSpace()]],
     Email: ['', [Validators.required, Validators.email]],
     CountryCode: ['', Validators.required],
     PhoneNumber: ['', numberValidator],
@@ -124,19 +125,10 @@ export class SubscriberFormComponent {
     this.save();
   }
 
-  notOnlyWhiteSpace() {
-    return function (control: FormControl) {
-      const isWhitespace = (control.value || '').trim().length === 0;
-      const isValid = !isWhitespace;
-      return isValid ? null : { whitespace: true };
-    };
-  }
-
-
   get isNameInvalid() {
     return (
-      this.subscriberForm.get('Name')?.invalid &&
-      this.subscriberForm.get('Name')?.touched 
+      this.subscriberForm.controls['Name'].hasError('required') ||
+      this.subscriberForm.controls['Name'].hasError('whitespace')
     );
   }
 
