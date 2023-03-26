@@ -28,3 +28,28 @@ export interface SubscriberResponse {
   Count: number;
   Data: Subscriber[];
 }
+
+
+export interface SubscriberBase {
+   
+  Subscribers : {
+    Name: string,
+    Email: string,
+    CountryCode: string,
+    PhoneNumber: string,
+    JobTitle: string,
+    Area: string,
+    Topics: any[]
+  }[]
+}
+
+export interface SubscriberResponse {
+  Count: number;
+  Data: Subscriber[];
+}
+export interface SubscriberSaveResponse {
+  Name: string,
+  Email: string,
+  PhoneNumber: string,
+  Id: number
+}

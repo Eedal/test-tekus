@@ -14,6 +14,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/auth-interceptor';
 import { ListSubscriberComponent } from './components/subscriber/list-subscriber/list-subscriber.component';
 import { SubscriberDetailComponent } from './components/subscriber/subscriber-detail/subscriber-detail.component';
+import { SubscriberComponent } from './pages/subscriber/subscriber.component';
+import { SubscriberModalComponent } from './components/subscriber/subscriber-modal/subscriber-modal.component';
+import { SubscriberFormComponent } from './components/subscriber/subscriber-form/subscriber-form.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { SubscriberDetailComponent } from './components/subscriber/subscriber-de
     LoginFormComponent,
     ListSubscriberComponent,
     SubscriberDetailComponent,
+    SubscriberComponent,
+    SubscriberFormComponent,
+    SubscriberModalComponent,
   ],
   imports: [
     BrowserModule,
