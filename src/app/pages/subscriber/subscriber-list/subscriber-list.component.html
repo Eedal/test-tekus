@@ -1,5 +1,11 @@
-<button mat-raised-button color="primary" (click)="handleAddSubscriber()">
-  Create a new subscriber
-</button>
+<div class="container">
+  <div class="container-button-create">
+    <button mat-raised-button color="primary" (click)="handleAddSubscriber()">
+      Create a new subscriber
+    </button>
+  </div>
+  <div class="container-subscriber-list">
+    <app-list-subscriber [subscribers]="subscribers"></app-list-subscriber>
 
-<app-list-subscriber [subscribers]="subscribers"></app-list-subscriber>
+  </div>
+</div>

@@ -94,6 +94,7 @@ export class SubscriberFormComponent {
         this.router.navigate(['/subscribers']);
       });
   }
+
   edit() {
     this.subscriberService
       .edit(
@@ -123,10 +124,19 @@ export class SubscriberFormComponent {
     this.save();
   }
 
+  notOnlyWhiteSpace() {
+    return function (control: FormControl) {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      const isValid = !isWhitespace;
+      return isValid ? null : { whitespace: true };
+    };
+  }
+
+
   get isNameInvalid() {
     return (
       this.subscriberForm.get('Name')?.invalid &&
-      this.subscriberForm.get('Name')?.touched
+      this.subscriberForm.get('Name')?.touched 
     );
   }
 

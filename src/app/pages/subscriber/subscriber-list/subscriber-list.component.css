@@ -1,0 +1,13 @@
+.container-button-create {
+  display: flex; 
+  justify-content: flex-end;
+    
+}
+.container {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.container-subscriber-list {
+  margin-top: 40px;
+}

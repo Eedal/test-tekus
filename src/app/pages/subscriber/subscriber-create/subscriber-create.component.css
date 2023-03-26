@@ -8,3 +8,9 @@
 .container-form {
   width: 500px; 
 }
+
+.add-button {
+  position: fixed;
+  top: 80px;
+  left: 16px;
+}
