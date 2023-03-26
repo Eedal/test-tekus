@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class LoginFormComponent {
   loginForm!: FormGroup;
+  error = '';
+  isLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,23 +28,35 @@ export class LoginFormComponent {
         control.markAsTouched()
       );
     }
-    
+
     const credentials: Credential = {
       UserName: this.loginForm.value.username,
       Password: this.loginForm.value.password,
     };
+    this.isLoading = true;
 
-    this.authService.login(credentials).subscribe((user) => {
-      console.log(user)
-      localStorage.setItem('token', user.Token);
-      this.router.navigate(['/']);
-    });
-    console.log(this.loginForm);
+    this.authService.login(credentials).subscribe(
+      (user) => {
+        console.log({ user });
+        const { FirstName, LastName } = user;
+        localStorage.setItem('token', user.Token);
+        localStorage.setItem('username', `${FirstName} ${LastName}`);
+        this.router.navigate(['/subscribers']);
+      },
+      (error) => {
+        this.error = error.error.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 4000);
+        this.isLoading = false;
+      }
+    );
   }
 
   get isUsernameInvalid() {
     return (
       this.loginForm.get('username')?.invalid &&
+      // this.loginForm.controls['username'].hasError('whitespace') &&
       this.loginForm.get('username')?.touched
     );
   }
@@ -57,6 +71,7 @@ export class LoginFormComponent {
   createForm() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
+      // username: ['', Validators.required, notOnlyWhiteSpace()],
       password: ['', Validators.required],
     });
   }

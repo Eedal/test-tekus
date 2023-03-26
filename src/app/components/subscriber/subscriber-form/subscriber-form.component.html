@@ -1,0 +1,76 @@
+<form [formGroup]="subscriberForm" (ngSubmit)="onSubmit()">
+  <h2>{{ isEdit ? "Update" : "Create" }} subscriber</h2>
+
+  <mat-grid-list cols="2" rowHeight="2:1" colspan="10">
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="Name" />
+        <mat-error *ngIf="isNameInvalid"> Name is required </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="Email" />
+        <mat-error *ngIf="isEmailInvalid"> Email is required </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <mat-label>Country Code</mat-label>
+        <input
+          matInput
+          formControlName="CountryCode"
+          [matAutocomplete]="auto"
+          autocomplete="off"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let country of countries$ | async"
+            [value]="country.Code"
+          >
+            {{ country.Name }} ({{ country.Code }})
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Phone Number"
+          formControlName="PhoneNumber"
+          type="number"
+        />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Job Title" formControlName="JobTitle" />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Area" formControlName="Area" />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <mat-label>Topics</mat-label>
+        <mat-select formControlName="Topics" multiple>
+          <mat-option *ngFor="let topic of topics" [value]="topic">
+            {{ topic }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button
+        type="submit"
+        mat-raised-button
+        [color]="isEdit ? 'warn' : 'primary'"
+      >
+        {{ isEdit ? "Edit" : "Save" }}
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
