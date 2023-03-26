@@ -9,6 +9,12 @@ import { SubscriberListComponent } from './pages/subscriber/subscriber-list/subs
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+
+  {
+    path: '',
+    redirectTo: '/subscribers',
+    pathMatch: 'full',
+  },
   {
     path: '',
     component: LayoutComponent,
