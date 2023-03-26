@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +8,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   username: string;
 
-  constructor(private router: Router) {
+  constructor() {
     this.username = localStorage.getItem('username') || '';
-  }
-
-  goToHome() {
-    this.router.navigate(['/subscribers']);
   }
 }
