@@ -21,6 +21,7 @@ import { SubscriberEditComponent } from './pages/subscriber/subscriber-edit/subs
 import { SubscriberListComponent } from './pages/subscriber/subscriber-list/subscriber-list.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/layout/header/header.component';
+import { ConfirmationDialogComponent } from './components/subscriber/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { HeaderComponent } from './components/layout/header/header.component';
     SubscriberEditComponent,
     LayoutComponent,
     HeaderComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,

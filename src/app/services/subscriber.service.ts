@@ -39,10 +39,19 @@ export class SubscriberService {
     return this.http.get<Subscriber>(`${this.subscribersUrl}${id}`);
   }
 
-  edit(subscriber: SubscriberBase, id: string): Observable<SubscriberSaveResponse[]> {
+  edit(
+    subscriber: SubscriberBase,
+    id: string
+  ): Observable<SubscriberSaveResponse[]> {
     return this.http.put<SubscriberSaveResponse[]>(
       `${this.subscribersUrl}${id}`,
       subscriber
     );
+  }
+
+  remove(subscriberId: number): Observable<any> {
+    console.log("aaveve")
+    return this.http.delete<any>(`${this.subscribersUrl}${subscriberId}`);
+
   }
 }

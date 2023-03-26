@@ -68,7 +68,7 @@ export class SubscriberFormComponent {
       const id = paramMap.get('id');
       if (id) {
         this.subscriberId = id;
-        console.log(this.subscriberId)
+        console.log(this.subscriberId);
       }
     });
     if (this.subscriberId != undefined) {
@@ -95,16 +95,17 @@ export class SubscriberFormComponent {
       });
   }
   edit() {
-    this.subscriberService.edit(
-      {
-        Id:this.subscriberId,
-        ...this.subscriberForm.value
-      }
-      ,
-      this.subscriberId
-    ).subscribe(res => {
-      this.router.navigate(['/subscribers']); 
-    })
+    this.subscriberService
+      .edit(
+        {
+          Id: this.subscriberId,
+          ...this.subscriberForm.value,
+        },
+        this.subscriberId
+      )
+      .subscribe((res) => {
+        this.router.navigate(['/subscribers']);
+      });
   }
 
   onSubmit() {
@@ -115,8 +116,8 @@ export class SubscriberFormComponent {
     }
 
     if (this.isEdit) {
-      this.edit()
-      return
+      this.edit();
+      return;
     }
 
     this.save();

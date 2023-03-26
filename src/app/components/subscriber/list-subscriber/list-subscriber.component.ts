@@ -13,6 +13,8 @@ import { Subscriber } from 'src/app/interfaces/subscriber.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { SubscriberDetailComponent } from '../subscriber-detail/subscriber-detail.component';
 import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { SubscriberService } from 'src/app/services/subscriber.service';
 
 @Component({
   selector: 'app-list-subscriber',
@@ -20,7 +22,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./list-subscriber.component.css'],
 })
 export class ListSubscriberComponent implements OnChanges {
-  constructor(public dialog: MatDialog, private router: Router) {}
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private subscriberService: SubscriberService
+  ) {}
 
   @Input() subscribers!: Subscriber[];
   dataSource!: MatTableDataSource<Subscriber>;
@@ -65,5 +71,32 @@ export class ListSubscriberComponent implements OnChanges {
     this.router.navigate([`/subscribers/edit/${subscriber.Id}`]);
   }
 
-  removeSubscriber(subscriber: Subscriber) {}
+  openConfirmationDialogRemove(subscriber: Subscriber) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '250px',
+      data: { message: '¿Estás seguro que deseas eliminar este subscriber?' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirm') {
+        console.log('confirmo');
+        this.removeSubscriber(subscriber.Id);
+      }
+    });
+  }
+
+  refreshData(subscriberId: number) {
+    this.subscribers = this.subscribers.filter(
+      (subscriber) => subscriber.Id !== subscriberId
+    );
+    this.dataSource = new MatTableDataSource<Subscriber>(this.subscribers);
+    this.dataSource.paginator = this.paginator;
+  }
+
+  removeSubscriber(subscriberId: number) {
+    this.refreshData(subscriberId);
+    this.subscriberService.remove(subscriberId).subscribe((res) => {
+      console.log('elimino')
+    });
+  }
 }
