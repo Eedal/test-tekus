@@ -10,10 +10,11 @@
         [class.is-invalid]="isUsernameInvalid"
         placeholder="Enter your username"
       />
-      <small *ngIf="isUsernameInvalid" class="text-danger">Username is required</small>
-
+      <small *ngIf="isUsernameInvalid" class="text-danger"
+        >Username is required</small
+      >
     </div>
-    
+
     <div class="form-field">
       <label for="password">Password:</label>
       <input
@@ -22,14 +23,34 @@
         name="password"
         formControlName="password"
         [class.is-invalid]="isPasswordInvalid"
-
         placeholder="Enter your password"
       />
-      <small *ngIf="isPasswordInvalid" class="text-danger">Password is required</small>
-
+      <small *ngIf="isPasswordInvalid" class="text-danger"
+        >Password is required</small
+      >
     </div>
+    <small *ngIf="!!error" class="text-danger">{{ error }}</small>
+
     <div class="form-field">
-      <button type="submit">Login</button>
+      <button
+        type="submit"
+        [disabled]="isLoading"
+        [ngClass]="{ loading: isLoading }"
+      >
+        <div class="spinner-container">
+          <ng-container *ngIf="isLoading">
+            <mat-spinner
+              diameter="20"
+              color="accent"
+              class="spinner"
+            ></mat-spinner>
+            <span style="margin-left: 5px">Loading...</span>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="!isLoading">
+          <span>Login</span>
+        </ng-container>
+      </button>
     </div>
   </form>
 </div>
