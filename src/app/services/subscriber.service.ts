@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environment';
 import {
+  Subscriber,
   SubscriberBase,
   SubscriberResponse,
   SubscriberSaveResponse,
@@ -31,6 +32,17 @@ export class SubscriberService {
     return this.http.post<SubscriberSaveResponse[]>(
       this.subscribersUrl,
       subscribers
+    );
+  }
+
+  getById(id: string): Observable<Subscriber> {
+    return this.http.get<Subscriber>(`${this.subscribersUrl}${id}`);
+  }
+
+  edit(subscriber: SubscriberBase, id: string): Observable<SubscriberSaveResponse[]> {
+    return this.http.put<SubscriberSaveResponse[]>(
+      `${this.subscribersUrl}${id}`,
+      subscriber
     );
   }
 }

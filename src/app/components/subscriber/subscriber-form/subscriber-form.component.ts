@@ -10,15 +10,14 @@ import {
   distinctUntilChanged,
   filter,
   Observable,
-  
   switchMap,
 } from 'rxjs';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Country } from 'src/app/interfaces/country.interface';
 import { CountryService } from 'src/app/services/country.service';
 import { SubscriberService } from 'src/app/services/subscriber.service';
 import { SubscriberModalComponent } from '../subscriber-modal/subscriber-modal.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const numberValidator = (control: FormControl) => {
   const value = control.value;
@@ -42,8 +41,9 @@ export class SubscriberFormComponent {
     Topics: [[]],
   });
 
-
   countries$!: Observable<Country[]>;
+  subscriberId!: string;
+  isEdit = false;
 
   topics = ['Topic 1', 'Topic 2', 'Topic 3'];
 
@@ -51,11 +51,9 @@ export class SubscriberFormComponent {
     private formBuilder: FormBuilder,
     private countryService: CountryService,
     private subscriberService: SubscriberService,
-    // public dialogRef: MatDialogRef<SubscriberFormComponent>,
     private dialog: MatDialog,
     private router: Router,
-
-
+    private activeRoute: ActivatedRoute
   ) {
     this.countries$ = this.subscriberForm.get('CountryCode')!.valueChanges.pipe(
       distinctUntilChanged(),
@@ -65,20 +63,47 @@ export class SubscriberFormComponent {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activeRoute.paramMap.subscribe((paramMap) => {
+      const id = paramMap.get('id');
+      if (id) {
+        this.subscriberId = id;
+        console.log(this.subscriberId)
+      }
+    });
+    if (this.subscriberId != undefined) {
+      this.isEdit = true;
+      this.subscriberService
+        .getById(this.subscriberId)
+        .subscribe((subscriber) => {
+          this.subscriberForm.patchValue(subscriber);
+        });
+    }
+  }
 
   save() {
-
-    this.subscriberService.createSubscribers({
-      Subscribers: [
-        this.subscriberForm.value
-      ]
-    }).subscribe(response => {
-      if (response.length > 0) {
-        this.dialog.open(SubscriberModalComponent);
-        return
+    this.subscriberService
+      .createSubscribers({
+        Subscribers: [this.subscriberForm.value],
+      })
+      .subscribe((response) => {
+        if (response.length > 0) {
+          this.dialog.open(SubscriberModalComponent);
+          return;
+        }
+        this.router.navigate(['/subscribers']);
+      });
+  }
+  edit() {
+    this.subscriberService.edit(
+      {
+        Id:this.subscriberId,
+        ...this.subscriberForm.value
       }
-      this.router.navigate(['/']);
+      ,
+      this.subscriberId
+    ).subscribe(res => {
+      this.router.navigate(['/subscribers']); 
     })
   }
 
@@ -88,13 +113,13 @@ export class SubscriberFormComponent {
         control.markAsTouched()
       );
     }
-    
-    const payload = {
-      Subscribers: [{ ...this.subscriberForm.value }],
-    };
 
-    this.save()
+    if (this.isEdit) {
+      this.edit()
+      return
+    }
 
+    this.save();
   }
 
   get isNameInvalid() {

@@ -26,16 +26,17 @@ export class LoginFormComponent {
         control.markAsTouched()
       );
     }
-    
+
     const credentials: Credential = {
       UserName: this.loginForm.value.username,
       Password: this.loginForm.value.password,
     };
 
     this.authService.login(credentials).subscribe((user) => {
-      console.log(user)
+      const { FirstName, LastName } = user;
       localStorage.setItem('token', user.Token);
-      this.router.navigate(['/']);
+      localStorage.setItem('username', `${FirstName} ${LastName}`);
+      this.router.navigate(['/subscribers']);
     });
     console.log(this.loginForm);
   }

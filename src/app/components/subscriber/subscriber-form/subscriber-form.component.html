@@ -1,5 +1,5 @@
 <form [formGroup]="subscriberForm" (ngSubmit)="onSubmit()">
-  <h2>Create subscriber</h2>
+  <h2>{{ isEdit ? "Update" : "Create" }} subscriber</h2>
 
   <mat-grid-list cols="2" rowHeight="2:1" colspan="10">
     <mat-grid-tile>
@@ -54,17 +54,23 @@
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>
-      <!-- <mat-form-field>
+      <mat-form-field>
         <mat-label>Topics</mat-label>
         <mat-select formControlName="Topics" multiple>
           <mat-option *ngFor="let topic of topics" [value]="topic">
             {{ topic }}
           </mat-option>
         </mat-select>
-      </mat-form-field> -->
+      </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button type="submit" mat-raised-button color="primary">Submit</button>
+      <button
+        type="submit"
+        mat-raised-button
+        [color]="isEdit ? 'warn' : 'primary'"
+      >
+        {{ isEdit ? "Edit" : "Save" }}
+      </button>
     </mat-grid-tile>
   </mat-grid-list>
 </form>

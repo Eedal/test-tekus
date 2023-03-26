@@ -4,11 +4,11 @@ import { Subscriber } from 'src/app/interfaces/subscriber.interface';
 import { SubscriberService } from 'src/app/services/subscriber.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-subscriber-list',
+  templateUrl: './subscriber-list.component.html',
+  styleUrls: ['./subscriber-list.component.css']
 })
-export class HomeComponent {
+export class SubscriberListComponent {
   subscribers: Subscriber[] = [];
   totalSubscribers!: number;
   currentPage = 1;
@@ -40,7 +40,7 @@ export class HomeComponent {
     this.currentPage = page;
   }
 
-  add() {
+  handleAddSubscriber() {
     this.router.navigate(['/subscribers/create']);
   }
 }
