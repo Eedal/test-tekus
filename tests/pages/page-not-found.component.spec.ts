@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageNotFoundComponent } from '../../src/app/pages/page-not-found/page-not-found.component';
@@ -8,7 +9,8 @@ describe('PageNotFoundComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageNotFoundComponent ]
+      declarations: [ PageNotFoundComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
 
@@ -21,8 +23,8 @@ describe('PageNotFoundComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  test('should render page-not-found works!', () => {
-    const title = fixture.nativeElement.querySelector('p');
-    expect(title.textContent).toContain('page-not-found works!')
+  test('should render 404 - Not found page', () => {
+    const title = fixture.nativeElement.querySelector('h3');
+    expect(title.textContent).toContain('404 - Not found page')
   })
 });

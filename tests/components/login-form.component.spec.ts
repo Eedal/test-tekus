@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { LoginFormComponent } from '../../src/app/components/login/login-form/login-form.component';
 
@@ -9,6 +11,7 @@ describe('LoginFormComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LoginFormComponent],
+      imports: [HttpClientTestingModule, ReactiveFormsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginFormComponent);
