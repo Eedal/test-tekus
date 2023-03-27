@@ -8,14 +8,28 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  authUrl = environment.API_URL + 'account/'
-  
+  private isAuthenticated = false;
+
+  authUrl = environment.API_URL + 'account/';
+
   constructor(private http: HttpClient) {}
 
   login(credentials: Credential): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(
-      `${this.authUrl}login`,
-      credentials
-    );
+    return this.http.post<LoginResponse>(`${this.authUrl}login`, credentials);
+  }
+
+  setIsAuthenticated(isAuthenticated: boolean) {
+    this.isAuthenticated = isAuthenticated;
+  }
+
+  isLoggedIn() {
+    console.log("estamos", this.isAuthenticated)
+    return this.isAuthenticated;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    this.setIsAuthenticated(false);
   }
 }

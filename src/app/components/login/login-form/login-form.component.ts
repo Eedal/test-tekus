@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Credential } from 'src/app/interfaces/auth.interface';
 import { Router } from '@angular/router';
+import { notOnlyWhiteSpace } from 'src/app/utils/validations';
 
 @Component({
   selector: 'app-login-form',
@@ -42,6 +43,7 @@ export class LoginFormComponent {
         localStorage.setItem('token', user.Token);
         localStorage.setItem('username', `${FirstName} ${LastName}`);
         this.router.navigate(['/subscribers']);
+        this.authService.setIsAuthenticated(true)
       },
       (error) => {
         this.error = error.error.error;
@@ -55,8 +57,8 @@ export class LoginFormComponent {
 
   get isUsernameInvalid() {
     return (
-      this.loginForm.get('username')?.invalid &&
-      // this.loginForm.controls['username'].hasError('whitespace') &&
+      (this.loginForm.get('username')?.invalid ||
+      this.loginForm.controls['username'].hasError('whitespace') ) && 
       this.loginForm.get('username')?.touched
     );
   }
@@ -70,8 +72,7 @@ export class LoginFormComponent {
 
   createForm() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      // username: ['', Validators.required, notOnlyWhiteSpace()],
+      username: ['', [Validators.required, notOnlyWhiteSpace()]],
       password: ['', Validators.required],
     });
   }
