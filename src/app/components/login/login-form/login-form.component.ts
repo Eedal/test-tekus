@@ -43,6 +43,7 @@ export class LoginFormComponent {
         localStorage.setItem('token', user.Token);
         localStorage.setItem('username', `${FirstName} ${LastName}`);
         this.router.navigate(['/subscribers']);
+        this.authService.setIsAuthenticated(true)
       },
       (error) => {
         this.error = error.error.error;
